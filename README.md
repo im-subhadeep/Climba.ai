@@ -83,7 +83,91 @@ An AI-powered web application that generates tailored interview questions based 
                    Question History       AI Generation         AI Generation
 ```
 
-### Data Flow
+### Component Architecture (Mermaid)
+
+```mermaid
+flowchart TB
+    subgraph Frontend["Frontend (React 18)"]
+        UI["User Interface"]
+        QF["QuestionForm Component"]
+        QD["QuestionDisplay Component"]
+        HS["HistorySidebar Component"]
+        DM["Dark Mode Toggle"]
+    end
+
+    subgraph Backend["Backend (Spring Boot 3.2)"]
+        QC["QuestionController"]
+        HC["HistoryController"]
+        QS["QuestionService"]
+        HFAI["HuggingFaceAIProvider"]
+        OAAI["OpenAIAIProvider"]
+        REPO["QuestionHistoryRepository"]
+    end
+
+    subgraph Database["Database Layer"]
+        PG[("PostgreSQL\n(Supabase)")]
+    end
+
+    subgraph External["External AI Services"]
+        HF["Hugging Face API\n(Qwen2.5-7B-Instruct)"]
+        OAI["OpenAI API\n(GPT-3.5-turbo)"]
+    end
+
+    UI --> QF
+    UI --> DM
+    QF -->|"POST /api/questions/generate"| QC
+    QD -->|Display Results| UI
+    HS -->|"GET /api/history"| HC
+    HS -->|Load Previous| QD
+
+    QC --> QS
+    HC --> REPO
+    QS --> HFAI
+    QS --> OAAI
+    QS --> REPO
+
+    REPO --> PG
+    HFAI -->|"HTTP Request"| HF
+    OAAI -->|"HTTP Request"| OAI
+
+    style Frontend fill:#61DAFB,stroke:#333,stroke-width:2px
+    style Backend fill:#6DB33F,stroke:#333,stroke-width:2px
+    style Database fill:#4169E1,stroke:#333,stroke-width:2px
+    style External fill:#FFD21E,stroke:#333,stroke-width:2px
+```
+
+### Sequence Diagram (Data Flow)
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as React Frontend
+    participant B as Spring Boot Backend
+    participant AI as Hugging Face API
+    participant DB as PostgreSQL
+
+    U->>F: Enter role, topic, difficulty
+    U->>F: Click "Generate Questions"
+    F->>B: POST /api/questions/generate
+    B->>B: Build dynamic prompt
+    B->>AI: Send prompt with temperature
+    AI->>B: Return JSON with questions
+    B->>B: Parse & validate response
+    B->>DB: Save to question_history
+    B->>F: Return QuestionResponse
+    F->>U: Display question cards
+
+    Note over U,F: User can copy/download questions
+
+    U->>F: Click "History" button
+    F->>B: GET /api/history
+    B->>DB: Query recent history
+    DB->>B: Return history list
+    B->>F: Return HistoryResponse[]
+    F->>U: Display history sidebar
+```
+
+### Data Flow Steps
 
 1. **User Input** → Frontend form captures role, topic, difficulty
 2. **API Request** → React sends POST to `/api/questions/generate`
