@@ -427,12 +427,6 @@ spring.jpa.hibernate.ddl-auto=update
 
 ---
 
-## 📄 License
-
-This project was created for the **CIMBA Winter Internship Program 2026**.
-
----
-
 ## 👨‍💻 Author
 
 **Subhadeep Mondal**
