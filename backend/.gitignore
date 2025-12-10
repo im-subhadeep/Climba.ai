@@ -1,0 +1,12 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.classpath
+.project
+.settings/
+.idea/
+
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+application-local.properties

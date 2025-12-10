@@ -1,0 +1,246 @@
+.question-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.question-card.technical {
+  border-left: 4px solid #667eea;
+}
+
+.question-card.behavioral {
+  border-left: 4px solid #764ba2;
+}
+
+.question-card.technical:hover {
+  border-color: #667eea;
+}
+
+.question-card.behavioral:hover {
+  border-color: #764ba2;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.question-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.expand-button {
+  padding: 0.4rem 0.6rem;
+  background: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.expand-button:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.copy-button {
+  padding: 0.4rem 0.8rem;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: #667eea;
+  color: white;
+}
+
+.copy-button.copied {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.copy-button:active {
+  transform: scale(0.95);
+}
+
+.card-content {
+  color: #333;
+  flex: 1;
+}
+
+.question-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.answer-section {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+  margin-top: 0;
+}
+
+.answer-section.visible {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #e0e0e0;
+}
+
+.answer-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #667eea;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.answer-icon {
+  font-size: 1rem;
+}
+
+.answer-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #555;
+  font-style: italic;
+  margin: 0;
+}
+
+.card-footer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #eee;
+}
+
+.type-badge {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.type-badge.technical {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.type-badge.behavioral {
+  background: rgba(118, 75, 162, 0.1);
+  color: #764ba2;
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .question-card {
+  background: #252536;
+}
+
+[data-theme="dark"] .question-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .question-text {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .answer-section.visible {
+  border-top-color: #3a3a4e;
+}
+
+[data-theme="dark"] .answer-text {
+  color: #a0a0a0;
+}
+
+[data-theme="dark"] .card-footer {
+  border-top-color: #3a3a4e;
+}
+
+[data-theme="dark"] .expand-button {
+  background: #3a3a4e;
+  color: #a0a0a0;
+}
+
+[data-theme="dark"] .expand-button:hover {
+  background: #4a4a5e;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .copy-button {
+  background: #252536;
+  border-color: #667eea;
+}
+
+[data-theme="dark"] .copy-button:hover {
+  background: #667eea;
+}
+
+[data-theme="dark"] .type-badge.technical {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+[data-theme="dark"] .type-badge.behavioral {
+  background: rgba(118, 75, 162, 0.2);
+}
+
+@media (max-width: 768px) {
+  .question-card {
+    padding: 1.25rem;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
